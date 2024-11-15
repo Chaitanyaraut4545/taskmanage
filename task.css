@@ -1,0 +1,73 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #6db3f2, #1d2b64);
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px;
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #4cae4c;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Back link styles */
+a {
+    display: inline-block; /* Make the link an inline block for padding */
+    margin-top: 20px; /* Space from the tasks list */
+    text-align: center;
+    color: #fff; /* White text color */
+    text-decoration: none; /* Remove underline */
+    background-color: #5bc0de; /* Light blue background */
+    padding: 10px 20px; /* Padding for a button-like appearance */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s; /* Smooth background transition */
+}
+
+a:hover {
+    background-color: #31b0d5; /* Darker blue on hover */
+    text-decoration: none; /* Ensure no underline on hover */
+}

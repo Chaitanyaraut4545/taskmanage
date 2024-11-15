@@ -1,0 +1,94 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #6db3f2, #1d2b64);
+    color: #333; /* Dark text color */
+    margin: 0;
+    padding: 20px; /* Add some padding around the body */
+}
+
+.container {
+    max-width: 600px; /* Limit container width */
+    margin: auto; /* Center the container */
+    background: white; /* White background for the container */
+    padding: 20px; /* Padding inside the container */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+h1 {
+    text-align: center; /* Center the heading */
+    color: #007bff; /* Blue color for the heading */
+}
+
+ul {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0; /* Remove default padding */
+}
+
+.task-item {
+    margin: 10px 0; /* Spacing between tasks */
+    padding: 15px; /* Padding inside task items */
+    background: #e9ecef; /* Light grey background for tasks */
+    border-radius: 4px; /* Rounded corners */
+    display: flex; /* Flexbox for alignment */
+    justify-content: space-between; /* Space between text and buttons */
+    align-items: center; /* Center align items */
+    transition: background-color 0.3s; /* Smooth background transition */
+}
+
+.task-item:hover {
+    background: #d8e6f3; /* Light blue background on hover */
+}
+
+.delete-button {
+    padding: 5px 10px; /* Button padding */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Rounded corners */
+    background-color: #d9534f; /* Red background for delete */
+    color: white; /* White text */
+    cursor: pointer; /* Pointer on hover */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+.delete-button:hover {
+    background-color: #c9302c; /* Darker red on hover */
+}
+
+a {
+    display: inline-block; 
+    margin-top: 20px; 
+    text-align: center;
+    color: #fff; 
+    text-decoration: none;
+    background-color: #5bc0de; 
+    padding: 10px 20px; 
+    border-radius: 5px; 
+    transition: background-color 0.3s; 
+}
+
+a:hover {
+    background-color: #31b0d5; 
+    text-decoration: none; 
+}
+
+.back-button {
+    display: inline-block; /* Make the link an inline block element */
+    padding: 10px 15px; /* Padding inside the button */
+    margin-top: 20px; /* Margin above the button */
+    background-color: #007bff; /* Blue background color */
+    color: white; /* White text color */
+    text-decoration: none; /* Remove underline */
+    border-radius: 4px; /* Rounded corners */
+    font-weight: bold; /* Bold text */
+    transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
+    text-align: center; /* Center the text */
+}
+
+.back-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: translateY(-2px); /* Lift effect on hover */
+}
+
+.back-button:active {
+    transform: translateY(1px); /* Slight push down effect on click */
+}

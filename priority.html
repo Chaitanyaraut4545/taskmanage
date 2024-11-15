@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Priority Tasks</title>
+    <link rel="stylesheet" href="priority.css">
+    <style>
+        .task-item {
+            margin: 5px 0;
+            padding: 10px;
+            background: #e9ecef;
+            border-radius: 4px;
+        }
+        .delete-button {
+            margin-left: 10px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #d9534f;
+            color: white;
+            cursor: pointer;
+        }
+        .delete-button:hover {
+            background-color: #c9302c;
+        }
+        .todo-list {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Priority Tasks</h1>
+        <ul id="priorityList" class="todo-list"></ul>
+        <a href="dashbord.html" class="back-button">Back</a>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const priorityListElement = document.getElementById("priorityList");
+
+            // Function to render the priority tasks
+            function renderPriorityTasks() {
+                const taskList = JSON.parse(localStorage.getItem('tasks')) || [];
+                priorityListElement.innerHTML = '';
+
+                const today = new Date();
+                const sortedTasks = taskList.sort((a, b) => new Date(a.end) - new Date(b.end));
+
+                sortedTasks.forEach((item, index) => {
+                    displayTask(item, index); // Pass index for unique identification
+                });
+            }
+
+            // Function to display each task in the list
+            function displayTask(task, index) {
+                const li = document.createElement("li");
+                li.className = 'task-item';
+                li.innerHTML = `${task.task} (From: ${task.start} To: ${task.end})`;
+
+                // Create delete button
+                const deleteButton = document.createElement("button");
+                deleteButton.textContent = "Delete";
+                deleteButton.className = 'delete-button';
+                deleteButton.addEventListener('click', () => {
+                    deleteTask(index); // Use index to delete the specific task
+                });
+
+                li.appendChild(deleteButton);
+                priorityListElement.appendChild(li);
+            }
+
+            // Function to delete a task by index
+            function deleteTask(taskIndex) {
+                const taskList = JSON.parse(localStorage.getItem('tasks')) || [];
+                taskList.splice(taskIndex, 1); // Remove the task at the specified index
+                localStorage.setItem('tasks', JSON.stringify(taskList)); // Update localStorage
+                renderPriorityTasks(); // Re-render the task list
+            }
+
+            window.onload = renderPriorityTasks; // Call function on page load
+        });
+    </script>
+</body>
+</html>

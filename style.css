@@ -1,0 +1,221 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: arial, sans-serif;
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 15px 30px;
+	background: #23242b;
+	color: #fff;
+}
+
+.u-name {
+	font-size: 20px;
+	padding-left: 17px;
+}
+
+.u-name b {
+	color: #127b8e;
+}
+
+.header i {
+	font-size: 30px;
+	cursor: pointer;
+	color: #fff;
+}
+
+.header i:hover {
+	color: #127b8e;
+}
+
+.user-p {
+	text-align: center;
+	padding-left: 10px;
+	padding-top: 25px;
+}
+
+.user-p img {
+	width: 100px;
+	border-radius: 50%;
+}
+
+.user-p h4 {
+	color: #ccc;
+	padding: 5px 0;
+}
+
+.side-bar {
+	width: 250px;
+	background: #262931;
+	min-height: 100vh;
+	transition: 500ms width;
+}
+
+.body {
+	display: flex;
+}
+
+.section-1 {
+	width: 100%;
+	background: url("background.jpg");
+	background-size: cover;
+	background-position: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	padding-top: 50px;
+}
+
+.section-1 h1 {
+	color: #fff;
+	font-size: 60px;
+}
+
+.section-1 p {
+	color: #127b8e;
+	font-size: 20px;
+	background: #fff;
+	padding: 7px;
+	border-radius: 5px;
+}
+
+.side-bar ul {
+	margin-top: 20px;
+	list-style: none;
+}
+
+.side-bar ul li {
+	font-size: 16px;
+	padding: 15px 0px;
+	padding-left: 20px;
+	transition: 500ms background;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.side-bar ul li:hover {
+	background: #127b8e;
+}
+
+.side-bar ul li a {
+	text-decoration: none;
+	color: #eee;
+	cursor: pointer;
+	letter-spacing: 1px;
+}
+
+.side-bar ul li a i {
+	display: inline-block;
+	padding-right: 10px;
+	font-size: 23px;
+}
+
+#navbtn {
+	display: inline-block;
+	margin-left: 70px;
+	font-size: 20px;
+	transition: 500ms color;
+}
+
+#checkbox {
+	display: none;
+}
+
+#checkbox:checked ~ .body .side-bar {
+	width: 60px;
+}
+
+#checkbox:checked ~ .body .side-bar .user-p {
+	visibility: hidden;
+}
+
+#checkbox:checked ~ .body .side-bar a span {
+	display: none;
+}
+
+/* Task Cards Layout */
+.task-sections {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr; /* 3 columns for task cards */
+	grid-gap: 15px;
+	width: 100%;
+	max-width: 90%; /* Ensure it doesn’t exceed available screen width */
+	position: relative;
+	z-index: 2; /* Ensure task cards are above the background image */
+	padding: 20px;
+}
+
+.task-card {
+	background-color: white;
+	padding: 15px;
+	text-align: center;
+	border-radius: 8px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	font-size: 14px;
+	font-weight: bold;
+	transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+	height: 120px; /* Increased height */
+	width: 300px; /* Reduced width */
+	margin: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.task-card:hover {
+	transform: translateY(-5px);
+	background-color: #a86bed;
+	color: #fff;
+}
+
+.task-card a {
+	text-decoration: none;
+	color: inherit;
+	display: block;
+}
+
+/* Adjusting layout for the task cards */
+.task-sections > .task-card:nth-child(1),
+.task-sections > .task-card:nth-child(2),
+.task-sections > .task-card:nth-child(3) {
+	grid-column: span 1; /* These 3 cards stay in the top row */
+}
+
+.task-sections > .task-card:nth-child(4),
+.task-sections > .task-card:nth-child(5),
+.task-sections > .task-card:nth-child(6) {
+	grid-column: span 1; /* These 3 cards stay in the bottom row */
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+	.task-sections {
+		grid-template-columns: 1fr 1fr; /* Two columns for smaller screens */
+	}
+
+	.task-card {
+		font-size: 50px;
+		padding: 50px;
+		width: 100px; /* Further reduce width for mobile */
+		height: 100px;
+		 /* Adjust card height for mobile */
+	}
+}
+
+@media (max-width: 480px) {
+	.task-sections {
+		grid-template-columns: 1fr; /* One column for very small screens */
+	}
+
+	.task-card {
+		width: 100%; /* Make cards full width on very small screens */
+		height: 100px; /* Maintain consistent height */
+	}
+}

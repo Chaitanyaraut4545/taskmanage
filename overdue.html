@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overdue Tasks</title>
+    <link rel="stylesheet" href="overdue.css">
+    <style>
+        .task-item {
+            margin: 5px 0;
+            padding: 10px;
+            background: #e9ecef;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .delete-button {
+            margin-left: 10px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #d9534f; /* Red background */
+            color: white; /* White text */
+            cursor: pointer; /* Pointer cursor */
+        }
+        .delete-button:hover {
+            background-color: #c9302c; /* Darker red on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Overdue Tasks</h1>
+        <ul id="overdueList"></ul>
+        <a href="dashbord.html">Back</a>
+    </div>
+    <script>
+        function renderOverdueTasks() {
+            const taskList = JSON.parse(localStorage.getItem('tasks')) || [];
+            const overdueListElement = document.getElementById('overdueList');
+            overdueListElement.innerHTML = '';
+
+            const today = new Date().toISOString().split('T')[0];
+
+            taskList.forEach((item, index) => {
+                if (item.end < today) {
+                    const li = document.createElement('li');
+                    li.className = 'task-item';
+                    li.textContent = `${item.task} (From: ${item.start} To: ${item.end})`;
+
+                    // Create delete button
+                    const deleteButton = document.createElement('button');
+                    deleteButton.textContent = 'Delete';
+                    deleteButton.className = 'delete-button'; 
+                    deleteButton.addEventListener('click', () => {
+                        deleteTask(index);
+                    });
+
+                    li.appendChild(deleteButton);
+                    overdueListElement.appendChild(li);
+                }
+            });
+        }
+
+        function deleteTask(index) {
+            const taskList = JSON.parse(localStorage.getItem('tasks')) || [];
+            taskList.splice(index, 1); 
+            localStorage.setItem('tasks', JSON.stringify(taskList));
+            renderOverdueTasks(); 
+        }
+
+        window.onload = renderOverdueTasks;
+    </script>
+</body>
+</html>

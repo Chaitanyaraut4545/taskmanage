@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upcoming Tasks</title>
+    <link rel="stylesheet" href="upcoming.css">
+    <style>
+        .task-item {
+            margin: 5px 0;
+            padding: 10px;
+            background: #e9ecef;
+            border-radius: 4px;
+        }
+        .delete-button {
+            margin-left: 10px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #d9534f;
+            color: white;
+            cursor: pointer;
+        }
+        .delete-button:hover {
+            background-color: #c9302c;
+        }
+        .todo-list {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Upcoming Tasks</h1>
+        <ul id="upcomingList" class="todo-list"></ul>
+        <a href="dashbord.html" class="back-button">Back</a>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const upcomingListElement = document.getElementById("upcomingList");
+
+            function renderUpcomingTasks() {
+                const taskList = JSON.parse(localStorage.getItem('tasks')) || [];
+                upcomingListElement.innerHTML = '';
+
+                const today = new Date().toISOString().split('T')[0];
+
+                taskList.forEach((item) => {
+                    if (item.end >= today) { // Only show tasks that are upcoming
+                        displayTask(item);
+                    }
+                });
+            }
+
+            function displayTask(task) {
+                const li = document.createElement("li");
+                li.className = 'task-item';
+                li.innerHTML = `${task.task} (From: ${task.start} To: ${task.end})`;
+
+                // Create delete button
+                const deleteButton = document.createElement("button");
+                deleteButton.textContent = "Delete";
+                deleteButton.className = 'delete-button';
+                deleteButton.addEventListener('click', () => {
+                    deleteTask(task);
+                });
+
+                li.appendChild(deleteButton);
+                upcomingListElement.appendChild(li);
+            }
+
+            function deleteTask(taskToDelete) {
+                const taskList = JSON.parse(localStorage.getItem('tasks')) || [];
+                const updatedTasks = taskList.filter(task => {
+                    return task.task !== taskToDelete.task || task.start !== taskToDelete.start || task.end !== taskToDelete.end;
+                });
+                localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+                renderUpcomingTasks(); // Refresh the displayed list
+            }
+
+            window.onload = renderUpcomingTasks; // Call function on page load
+        });
+    </script>
+</body>
+</html>

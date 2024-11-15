@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pending Tasks</title>
+    <link rel="stylesheet" href="pending.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Pending Tasks</h1>
+        <ul id="pendingList"></ul>
+        <a href="dashbord.html">Back</a>
+    </div>
+    <script>
+        function renderPendingTasks() {
+            const taskList = JSON.parse(localStorage.getItem('tasks')) || [];
+            const pendingListElement = document.getElementById('pendingList');
+            pendingListElement.innerHTML = ''; // Clear the current list
+
+            const today = new Date().toISOString().split('T')[0];
+
+            // Loop through the tasks and display the ones that are still pending
+            taskList.forEach((item, index) => {
+                if (item.end >= today) {
+                    const li = document.createElement('li');
+                    li.textContent = `${item.task} (From: ${item.start} To: ${item.end})`;
+
+                    // Create "Complete" button
+                    const completeButton = document.createElement('button');
+                    completeButton.textContent = 'Complete';
+                    completeButton.style.marginLeft = '10px';
+                    completeButton.style.backgroundColor = '#5cb85c'; // Green background for "Complete" button
+                    completeButton.style.color = '#fff';
+                    completeButton.style.border = 'none';
+                    completeButton.style.borderRadius = '4px';
+                    completeButton.style.cursor = 'pointer';
+                    completeButton.addEventListener('click', () => {
+                        completeTask(index);
+                    });
+
+                    // Create "Delete" button
+                    const deleteButton = document.createElement('button');
+                    deleteButton.textContent = 'Delete';
+                    deleteButton.style.marginLeft = '10px';
+                    deleteButton.style.backgroundColor = '#d9534f'; // Red background for "Delete" button
+                    deleteButton.style.color = '#fff';
+                    deleteButton.style.border = 'none';
+                    deleteButton.style.borderRadius = '4px';
+                    deleteButton.style.cursor = 'pointer';
+                    deleteButton.addEventListener('click', () => {
+                        deleteTask(index);
+                    });
+
+                    // Append buttons to the task item
+                    li.appendChild(completeButton);
+                    li.appendChild(deleteButton);
+
+                    pendingListElement.appendChild(li);
+                }
+            });
+        }
+
+        function completeTask(index) {
+            const taskList = JSON.parse(localStorage.getItem('tasks')) || [];
+            const completedTask = taskList.splice(index, 1)[0]; // Remove the task from the task list and save it
+
+            // Store the completed task in localStorage
+            let completedTasks = JSON.parse(localStorage.getItem('completedTasks')) || [];
+            completedTasks.push(completedTask);
+            localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
+
+            // Update the tasks in localStorage after completing one
+            localStorage.setItem('tasks', JSON.stringify(taskList));
+
+            renderPendingTasks(); // Re-render the pending tasks list
+        }
+
+        function deleteTask(index) {
+            const taskList = JSON.parse(localStorage.getItem('tasks')) || [];
+            taskList.splice(index, 1); // Remove the task from the task list
+
+            // Update the tasks in localStorage after deletion
+            localStorage.setItem('tasks', JSON.stringify(taskList));
+
+            renderPendingTasks(); // Re-render the pending tasks list
+        }
+
+        window.onload = renderPendingTasks;
+    </script>
+</body>
+</html>
